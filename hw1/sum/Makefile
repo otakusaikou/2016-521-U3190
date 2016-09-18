@@ -12,23 +12,29 @@ LIBS =
 # Library include path
 INCLUDES = -I./include
 
-# Output executable file name
-TARGET = sum 
-
 # Source code file name
-SRCS = sum.cpp
+SRCS = $(wildcard *.cpp)
 
 # Object files
-OBJ = $(SRCS:.cpp=.o)
+OBJS = $(SRCS:.cpp=.o)
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) $(OBJ) -o $(TARGET)
+# Output executable file name
+TARGET = $(SRCS:.cpp=)
 
-$(OBJ): $(SRCS)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) -c $(SRCS)
+default: $(TARGET)
+
+# Pattern rules for executable files
+$(TARGET): %: %.o
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) -o $@ $<
+
+# Pattern rules for object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) -c -o $@ $<
 
 # Clean compiled files
 clean:
-	@rm -rf $(TARGET) $(OBJ)
+	$(RM) $(TARGET) $(OBJS)
 
-
+# Show the information of source files
+show:
+	@ls -l $(SRCS)

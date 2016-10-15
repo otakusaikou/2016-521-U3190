@@ -51,6 +51,7 @@ int main()
         }
         ++i;
     }
+    fin.close();
 
     // Output results
     std::cout << "Total punctuation: " << std::accumulate(punctVec.begin(), punctVec.end(), 0) << std::endl

@@ -3,8 +3,6 @@
 #include <cstring>
 #include <vector>
 
-using namespace std;
-
 // Function for reading text file
 std::ifstream &openFile(std::ifstream &fin, const std::string &fileName)
 {
